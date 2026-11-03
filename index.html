@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base target="_top">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping App</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
@@ -16,6 +16,7 @@
     .sticky-header { position: sticky; top: 0; z-index: 1020; background: #f8f9fa; padding-top: 10px; margin-bottom: 10px; }
     .header-content { background: white; padding: 15px; border-radius: 20px; shadow-sm: 0 4px 15px rgba(0,0,0,0.05); }
 
+    /* Category Bar Styling */
     .category-bar {
       overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
       padding: 5px 0 15px 0; position: sticky; top: 85px; z-index: 1015;
@@ -52,19 +53,21 @@
     
     .desc-truncate { font-size: 0.75rem; color: #777; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.2em; }
     .btn-buy-now { background: linear-gradient(45deg, #ff9500, #ff5e00); color: white; border: none; }
+    
     .btn-outline-deep-purple { background-color: transparent; color: #311b92; border: 1px solid #311b92; }
     .btn-outline-deep-purple:hover { background-color: #311b92; color: white; }
 
     .btn-close-floating {
         position: absolute; top: 15px; right: 15px; z-index: 1050;
         background-color: rgba(255,255,255,0.9); border-radius: 50%; padding: 10px; width: 35px; height: 35px;
-        opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: transform 0.2s;
+        background-size: 12px; opacity: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: transform 0.2s;
     }
     .btn-close-floating:hover { transform: scale(1.1); background-color: #fff; }
     
     .detail-desc-box { position: relative; }
     .line-clamp-9 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 9; -webkit-box-orient: vertical; }
     .read-more-btn { display: block; width: 100%; text-align: center; background: transparent; border: none; color: #0d6efd; font-size: 0.9rem; margin-top: 5px; padding: 5px; }
+    .read-more-btn:hover { background: rgba(13, 110, 253, 0.05); border-radius: 5px; }
     .sticky-modal-footer { position: sticky; bottom: 0; background: white; padding: 15px; border-top: 1px solid #eee; z-index: 1020; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); }
 
     .admin-tab-content, .cust-tab-content { animation: fadeIn 0.3s; }
@@ -85,6 +88,8 @@
     .status-preparing { background-color: #ffc107; color: black; } 
     .status-success { background-color: #28a745; color: white; }   
     .status-info { background-color: #17a2b8; color: white; }
+    
+    .btn-xs { padding: 0.1rem 0.4rem; font-size: 0.7rem; }
 
     .img-upload-container { width: 100%; margin-bottom: 10px; }
     .img-upload-main { width: 100%; padding-top: 75%; background: #f0f0f0; border-radius: 12px; position: relative; margin-bottom: 8px; border: 2px dashed #ddd; overflow: hidden; cursor: pointer; }
@@ -94,23 +99,36 @@
     .uploaded-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
     .btn-remove-img { position: absolute; top: 2px; right: 2px; background: rgba(255,0,0,0.8); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; z-index: 10; }
 
+    /* ปรับแต่งปุ่มลูกศรใน Carousel ตามคำขอ */
     .carousel-control-prev-icon, .carousel-control-next-icon {
-      background-color: rgba(0, 0, 0, 0.8) !important;
+      background-color: rgba(0, 0, 0, 0.4) !important; /* วงกลมสีดำบางๆ */
       border-radius: 50%;
-      background-size: 50% 50%;
+      background-size: 55% 55%;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+/* ปรับแต่งปุ่มลูกศร: วงกลมดำเข้มขึ้น และหัวลูกศรหนาขึ้น */
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.8) !important; /* เปลี่ยนจาก 0.4 เป็น 0.8 ให้ดำเข้มขึ้น */
+      border-radius: 50%;
+      background-size: 50% 50%; /* ปรับขนาดเล็กลงนิดหน่อยเพื่อให้ดูหนาและสมส่วน */
       width: 42px;
       height: 42px;
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
+
+    /* เพิ่ม stroke และ stroke-width เพื่อให้ลูกศรดูหนาขึ้น */
+    .carousel-control-prev-icon { 
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff' stroke='%23fff' stroke-width='1.5'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important; 
+    }
+    
+    .carousel-control-next-icon { 
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff' stroke='%23fff' stroke-width='1.5'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important; 
+    }
   </style>
 </head>
 <body>
-
-  <!-- Loading Overlay สำหรับรอลมหายใจจาก Google Sheets -->
-  <div id="globalLoading" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.8); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-    <div class="spinner-border text-primary mb-2" role="status"></div>
-    <div class="fw-bold text-muted">กำลังเชื่อมต่อฐานข้อมูล...</div>
-  </div>
 
   <div class="container py-3">
     <div id="mainPage" class="card login-card p-4 text-center">
@@ -159,14 +177,14 @@
             <div class="col-12"><input type="text" id="addr_postcode" class="form-control form-control-sm" placeholder="รหัสไปรษณีย์ *"></div>
           </div>
         </div>
-        <input type="tel" id="phone" class="form-control mb-3" placeholder="เบอร์โทร * (10 หลัก)" required maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)">
+        <input type="tel" id="phone" class="form-control mb-3" placeholder="เบอร์โทร * (10 หลัก)" required maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)" pattern="[0-9]{10}">
         <button class="btn btn-primary w-100 btn-rounded mb-2" onclick="handleRegistration()">สมัครสมาชิก</button>
         <p class="text-center small mt-2">มีบัญชีแล้ว? <button class="btn btn-link p-0 small" onclick="showLoginOldUser()">เข้าสู่ระบบ</button></p>
       </div>
       <div id="loginOldUserForm" style="display:none;" class="text-center">
         <h3 class="mb-4">เข้าสู่ระบบ</h3>
         <input type="email" id="loginEmail" class="form-control mb-2" placeholder="อีเมล">
-        <input type="tel" id="loginPhone" class="form-control mb-3" placeholder="เบอร์โทร (10 หลัก)" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)">
+        <input type="tel" id="loginPhone" class="form-control mb-3" placeholder="เบอร์โทร (10 หลัก)" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,10)" pattern="[0-9]{10}">
         <button class="btn btn-success w-100 btn-rounded mb-2" onclick="handleOldUserLogin()">เข้าสู่ระบบ</button>
         <div class="d-flex justify-content-between mt-3 px-2">
            <button class="btn btn-link p-0 small text-decoration-none" onclick="showRegistrationForm()">ยังไม่มีบัญชี?</button>
@@ -183,7 +201,9 @@
             <h6 class="mb-0 text-muted small">ยินดีต้อนรับ</h6>
             <div class="fw-bold" id="custDisplayName">...</div>
           </div>
-          <div class="d-flex gap-2" id="custHeaderBtns"></div>
+          <div class="d-flex gap-2" id="custHeaderBtns">
+            <!-- ปุ่มจะถูก render ตามสถานะ guest/member -->
+          </div>
         </div>
         <div class="category-bar" id="custCategoryBar" style="display:none;">
           <span class="cat-pill" onclick="filterCategory('ตำรา (ไฟล์)', this)">ตำรา (ไฟล์)</span>
@@ -256,7 +276,6 @@
     </div>
   </div>
 
-  <!-- Modal ต่างๆ -->
   <div class="modal fade" id="productModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"><div class="modal-content rounded-4"><div class="modal-header border-0"><h5>จัดการสินค้า</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">
     <input type="hidden" id="pId">
     <div class="mb-2"><label class="small text-muted">รูปภาพสินค้า (สูงสุด 5 รูป)</label></div>
@@ -457,95 +476,56 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // 🌟 ใส่ Web App URL ของคุณที่นี่ (นำมาจาก Google Apps Script หลัง Deploy)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYhNK1VZhDnivGOQqyCE0FflsI3m_fZlywG-LXRBuKnWTvsOeItHvFC3Pz-yiqVNw4kA/exec";
 
-    // จำลอง google.script.run ให้ทำงานผ่าน fetch ไปยัง GitHub Pages
-    window.google = {
-      script: {
-        run: {
-          withSuccessHandler: function(successCallback) {
-            return {
-              withFailureHandler: function(failureCallback) {
-                return {
-                  verifyAdminPassword: (pass) => callApi('verifyAdminPassword', {pass}, successCallback, failureCallback),
-                  saveAdminSettings: (newPass) => callApi('saveAdminSettings', {newPass}, successCallback, failureCallback),
-                  sendAdminPasswordEmail: () => callApi('sendAdminPasswordEmail', {}, successCallback, failureCallback),
-                  uploadFile: (fileData, fileName) => callApi('uploadFile', {fileData, fileName}, successCallback, failureCallback),
-                  submitPaymentNotification: (data) => callApi('submitPaymentNotification', data, successCallback, failureCallback),
-                  addProduct: (product) => callApi('addProduct', {product}, successCallback, failureCallback),
-                  updateProduct: (product) => callApi('updateProduct', {product}, successCallback, failureCallback),
-                  toggleProductStatus: (id) => callApi('toggleProductStatus', {id}, successCallback, failureCallback),
-                  deleteProduct: (id) => callApi('deleteProduct', {id}, successCallback, failureCallback),
-                  registerUser: (userData) => callApi('registerUser', {userData}, successCallback, failureCallback),
-                  loginExistingUser: (loginData) => callApi('loginExistingUser', {loginData}, successCallback, failureCallback),
-                  checkUserExists: (userId) => callApi('checkUserExists', {userId}, successCallback, failureCallback),
-                  updateUser: (user) => callApi('updateUser', {user}, successCallback, failureCallback),
-                  deleteUser: (id) => callApi('deleteUser', {id}, successCallback, failureCallback),
-                  getAdminData: () => callApi('getAdminData', {}, successCallback, failureCallback),
-                  getCustomerProducts: () => callApi('getCustomerProducts', {}, successCallback, failureCallback),
-                  placeOrder: (order) => callApi('placeOrder', {order}, successCallback, failureCallback),
-                  updateOrderWatermark: (orderId, items) => callApi('updateOrderWatermark', {orderId, items}, successCallback, failureCallback),
-                  cancelOrder: (orderId) => callApi('cancelOrder', {orderId}, successCallback, failureCallback),
-                  updateOrderStatus: (orderId, status, trackingNo) => callApi('updateOrderStatus', {orderId, status, trackingNo}, successCallback, failureCallback)
-                };
-              },
-              verifyAdminPassword: (pass) => callApi('verifyAdminPassword', {pass}, successCallback),
-              saveAdminSettings: (newPass) => callApi('saveAdminSettings', {newPass}, successCallback),
-              sendAdminPasswordEmail: () => callApi('sendAdminPasswordEmail', {}, successCallback),
-              uploadFile: (fileData, fileName) => callApi('uploadFile', {fileData, fileName}, successCallback),
-              submitPaymentNotification: (data) => callApi('submitPaymentNotification', data, successCallback),
-              addProduct: (product) => callApi('addProduct', {product}, successCallback),
-              updateProduct: (product) => callApi('updateProduct', {product}, successCallback),
-              toggleProductStatus: (id) => callApi('toggleProductStatus', {id}, successCallback),
-              deleteProduct: (id) => callApi('deleteProduct', {id}, successCallback),
-              registerUser: (userData) => callApi('registerUser', {userData}, successCallback),
-              loginExistingUser: (loginData) => callApi('loginExistingUser', {loginData}, successCallback),
-              checkUserExists: (userId) => callApi('checkUserExists', {userId}, successCallback),
-              updateUser: (user) => callApi('updateUser', {user}, successCallback),
-              deleteUser: (id) => callApi('deleteUser', {id}, successCallback),
-              getAdminData: () => callApi('getAdminData', {}, successCallback),
-              getCustomerProducts: () => callApi('getCustomerProducts', {}, successCallback),
-              placeOrder: (order) => callApi('placeOrder', {order}, successCallback),
-              updateOrderWatermark: (orderId, items) => callApi('updateOrderWatermark', {orderId, items}, successCallback),
-              cancelOrder: (orderId) => callApi('cancelOrder', {orderId}, successCallback),
-              updateOrderStatus: (orderId, status, trackingNo) => callApi('updateOrderStatus', {orderId, status, trackingNo}, successCallback)
+  <!-- ===================================================================
+       API CONNECTOR : เชื่อมหน้าบ้าน (GitHub Pages) -> หลังบ้าน (Google Apps Script + Google Sheets)
+       จำลอง google.script.run ให้ทำงานเหมือนเดิมทุกอย่าง จึงไม่ต้องแก้โค้ดส่วนอื่น
+       *** ตั้งค่า URL ของ Web App ได้ที่ API_URL ด้านล่างเท่านั้น ***
+       =================================================================== -->
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwYhNK1VZhDnivGOQqyCE0FflsI3m_fZlywG-LXRBuKnWTvsOeItHvFC3Pz-yiqVNw4kA/exec';
+
+    (function () {
+      async function callApi(fn, args) {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          // ใช้ text/plain เพื่อเลี่ยง CORS preflight (Apps Script ไม่รองรับ OPTIONS)
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ fn: fn, args: args }),
+          redirect: 'follow'
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        if (!json || json.ok !== true) throw new Error((json && json.error) || 'Unknown server error');
+        return json.result === undefined ? null : json.result;
+      }
+
+      function makeRunner(onSuccess, onFailure) {
+        return new Proxy({}, {
+          get: function (_, name) {
+            if (typeof name !== 'string') return undefined;
+            if (name === 'withSuccessHandler') return function (fn) { return makeRunner(fn, onFailure); };
+            if (name === 'withFailureHandler') return function (fn) { return makeRunner(onSuccess, fn); };
+            return function () {
+              const args = Array.prototype.slice.call(arguments);
+              callApi(name, args).then(function (result) {
+                if (typeof onSuccess === 'function') onSuccess(result);
+              }).catch(function (err) {
+                console.error('API error [' + name + ']:', err);
+                if (typeof onFailure === 'function') onFailure(err);
+              });
             };
           }
-        }
+        });
       }
-    };
 
-    function callApi(action, payload, successCallback, failureCallback) {
-      payload.action = action;
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', // สำคัญมากสำหรับ Apps Script เพื่อข้าม CORS ป้องกันบล็อก
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      })
-      .then(() => {
-        // เนื่องจากโหมด no-cors จะไม่สามารถอ่าน response กลับมาตรงๆ ได้ในการยิงครั้งเดียว 
-        // ทางออกที่เสถียรสำหรับ POST คือส่งคำขอแล้วดึงข้อมูลอัปเดตผ่าน GET หรือปรับเป็น JSONP / ผ่าน GET request แทน
-      })
-      .catch(err => {
-        if(failureCallback) failureCallback(err);
-      });
+      window.google = window.google || {};
+      window.google.script = window.google.script || {};
+      window.google.script.run = makeRunner(null, null);
+    })();
+  </script>
 
-      // เนื่องจากโหมด no-cors ป้องกันการอ่าน body ทางปฏิบัติที่ดีที่สุดคือใช้ GET ดึงข้อมูล 
-      // หรือดึงผ่าน GET API ในกรณีส่งข้อมูล กรุณาดูฟังก์ชันดึงข้อมูลด่วนด้านล่างนี้
-      fetch(SCRIPT_URL + "?action=" + action + "&data=" + encodeURIComponent(JSON.stringify(payload)))
-      .then(res => res.json())
-      .then(res => {
-         if(successCallback) successCallback(res);
-      })
-      .catch(err => {
-         // Fallback จำลองกรณีดึงข้อมูลสำเร็จผ่านระบบแคชชิ่ง
-         if(successCallback) successCallback(null);
-      });
-    }
-
+  <script>
     // Global Variable Declaration
     let pModal, uModal, cModal, ckModal, payModal, apModal, npModal, pdModal, qtyModal, fpModal, watermarkEditModal;
     let cart = [];
@@ -555,16 +535,17 @@
     let allAdminOrders = [];
     let allAdminProducts = [];
     let allAdminUsers = [];
-    let adminActiveCategory = null; 
+    let adminActiveCategory = null; // null = ยังไม่เลือกเมนู (แสดงหน้าว่าง)
     let currentProductImgs = ["", "", "", "", ""]; 
     let currentProductFiles = [null, null, null, null, null]; 
     let currentDetailP = null; 
     let currentQtyAction = ''; 
-    let myOrdersCache = []; 
-    let currentWatermarkEditCtx = null; 
-    const WATERMARK_CATEGORY = 'ตำรา (ไฟล์)'; 
-    let isGuestMode = false; 
+    let myOrdersCache = []; // cache รายการออเดอร์ของลูกค้าที่ login อยู่ สำหรับใช้แก้ไขชื่อ/ฉายาลายน้ำ
+    let currentWatermarkEditCtx = null; // {mode:'checkout'|'order', orderId}
+    const WATERMARK_CATEGORY = 'ตำรา (ไฟล์)'; // หมวดหมู่ที่ต้องกรอกชื่อ/ฉายาสำหรับลายน้ำ
+    let isGuestMode = false; // ตัวแปรสถานะ: true = ดูอย่างเดียว ยังไม่ได้ login
 
+    // --- Core Navigation Functions (Moved to top for safety) ---
     function hideAll() { 
         ['mainPage', 'adminLoginPage', 'customerPage', 'adminDashboard', 'storeFront'].forEach(id => { 
             const el = document.getElementById(id); 
@@ -572,6 +553,7 @@
         }); 
     }
 
+    // เข้าสู่หน้าแดชบอร์ดแอดมิน (ตั้งค่าให้แท็บ "สินค้า" พร้อมเมนูหมวดหมู่แสดงผลถูกต้องตั้งแต่เข้าครั้งแรก)
     function enterAdminDashboard() {
         document.getElementById('adminDashboard').style.display = 'block';
         document.getElementById('adminCategoryBar').style.display = 'block';
@@ -580,16 +562,19 @@
     }
     
     function showAdminLogin() { 
+        // ตรวจสอบการจดจำแอดมิน
         if(localStorage.getItem('shopAdmin') === 'true') {
              hideAll();
              enterAdminDashboard();
              return;
         }
+
         hideAll(); 
         document.getElementById('adminLoginPage').style.display = 'block'; 
     }
     
     function showCustomerLogin() { 
+        // ถ้าอยู่ในหน้าร้านในฐานะ guest ให้ซ่อน storeFront ก่อน
         if(isGuestMode) { document.getElementById('storeFront').style.display = 'none'; isGuestMode = false; }
         hideAll(); 
         document.getElementById('customerPage').style.display = 'block'; 
@@ -602,10 +587,12 @@
          const stored = localStorage.getItem('shopUser');
          if(stored) user = JSON.parse(stored);
       } catch(e) { 
+         console.error('User storage error', e);
          localStorage.removeItem('shopUser'); 
       }
       
       if(user) {
+        // ตรวจสอบว่า userId ยังอยู่ในฐานข้อมูลหรือไม่ (ข้อ 3)
         google.script.run.withSuccessHandler(function(exists) {
           if(exists) {
             document.getElementById('welcomeBack').style.display = 'block';
@@ -613,6 +600,7 @@
             document.getElementById('loginOldUserForm').style.display = 'none';
             document.getElementById('welcomeText').innerText = 'ยินดีต้อนรับ, ' + (user.name || 'ลูกค้า');
           } else {
+            // ถูกลบออกจากระบบแล้ว
             localStorage.removeItem('shopUser');
             alert('บัญชีของท่านถูกลบออกจากระบบ กรุณาสมัครสมาชิกใหม่');
             showRegistrationForm();
@@ -623,6 +611,7 @@
       }
     }
 
+    // --- Initialization ---
     window.onload = function() {
       pModal = new bootstrap.Modal(document.getElementById('productModal'));
       uModal = new bootstrap.Modal(document.getElementById('userModal'));
@@ -644,11 +633,8 @@
       initAdminProfile();
       updateCartBadge();
       
-      setTimeout(() => { 
-        const loading = document.getElementById('globalLoading');
-        if(loading) loading.style.display = 'none';
-        updateBadges(); 
-      }, 800);
+      // Call async functions safely
+      setTimeout(() => { updateBadges(); }, 500);
     };
 
     function toggleNewAdminPassword() {
@@ -691,6 +677,7 @@
     function toggleAdminPassword() { const p = document.getElementById('adminPass'); const i = document.getElementById('togglePassIcon'); p.type = p.type==='password'?'text':'password'; i.className = p.type==='password'?'bi bi-eye password-toggle':'bi bi-eye-slash password-toggle'; }
     function goBack() { hideAll(); document.getElementById('mainPage').style.display = 'block'; }
     
+    // การ Logout
     function logout() { 
         localStorage.removeItem('shopUser'); 
         localStorage.removeItem('shopAdmin'); 
@@ -700,10 +687,12 @@
     }
 
     function resetUser() { localStorage.removeItem('shopUser'); showRegistrationForm(); }
+
     function showRegistrationForm() { document.getElementById('welcomeBack').style.display='none'; document.getElementById('loginOldUserForm').style.display='none'; document.getElementById('registrationForm').style.display='block'; }
     function showLoginOldUser() { document.getElementById('registrationForm').style.display='none'; document.getElementById('loginOldUserForm').style.display='block'; }
     function showForgotPassword() { fpModal.show(); }
 
+    // ฟังก์ชันรวมที่อยู่จากฟิลด์แยก (สำหรับลงทะเบียน)
     function buildAddressFromRegForm() {
       const no       = document.getElementById('addr_no').value.trim() || '-';
       const village  = document.getElementById('addr_village').value.trim() || '-';
@@ -717,6 +706,7 @@
       return `เลขที่ ${no}, หมู่บ้าน ${village}, หมู่ที่ ${moo}, ถนน ${road}, ซอย ${soi}, ตำบล/แขวง ${tambon}, อำเภอ/เขต ${amphoe}, จังหวัด ${province}, รหัสไปรษณีย์ ${postcode}`;
     }
 
+    // ฟังก์ชันรวมที่อยู่จากฟิลด์แยก (สำหรับ userModal)
     function buildAddressFromUserModal() {
       const no       = document.getElementById('uAddr_no').value.trim() || '-';
       const village  = document.getElementById('uAddr_village').value.trim() || '-';
@@ -730,6 +720,7 @@
       return `เลขที่ ${no}, หมู่บ้าน ${village}, หมู่ที่ ${moo}, ถนน ${road}, ซอย ${soi}, ตำบล/แขวง ${tambon}, อำเภอ/เขต ${amphoe}, จังหวัด ${province}, รหัสไปรษณีย์ ${postcode}`;
     }
 
+    // แยก address string กลับเป็นฟิลด์ (สำหรับเติมใน userModal)
     function parseAddressToUserModal(addrStr) {
       const defaults = { no:'-', village:'-', moo:'-', road:'-', soi:'-', tambon:'-', amphoe:'-', province:'-', postcode:'-' };
       try {
@@ -764,6 +755,7 @@
       const email   = document.getElementById('email').value.trim();
       const name    = document.getElementById('name').value.trim();
       const phone   = document.getElementById('phone').value.trim();
+      // ตรวจสอบว่ากรอกครบทุกช่อง
       const addrFields = ['addr_no','addr_village','addr_moo','addr_road','addr_soi','addr_tambon','addr_amphoe','addr_province','addr_postcode'];
       for(let f of addrFields) {
         if(!document.getElementById(f).value.trim()) {
@@ -776,24 +768,24 @@
       if(!/^[0-9]{10}$/.test(phone)) { alert('เบอร์โทรต้องเป็นตัวเลข 10 หลักเท่านั้น'); document.getElementById('phone').focus(); return; }
       const address = buildAddressFromRegForm();
       let d = { email, name, address, phone };
-      google.script.run.withSuccessHandler(r => { if(r && r.success) { localStorage.setItem('shopUser', JSON.stringify(r)); enterStore(); } else alert('อีเมลซ้ำหรือเกิดข้อผิดพลาด'); }).registerUser(d);
+      google.script.run.withSuccessHandler(r => { if(r.success) { localStorage.setItem('shopUser', JSON.stringify(r)); enterStore(); } else alert('อีเมลซ้ำ'); }).registerUser(d);
     }
-    
     function handleOldUserLogin() {
       let phone = document.getElementById('loginPhone').value;
       if(!/^[0-9]{10}$/.test(phone)) { alert('เบอร์โทรต้องเป็นตัวเลข 10 หลักเท่านั้น'); document.getElementById('loginPhone').focus(); return; }
       let d = { email:document.getElementById('loginEmail').value, phone:phone };
-      google.script.run.withSuccessHandler(r => { if(r && r.success) { localStorage.setItem('shopUser', JSON.stringify(r)); enterStore(); } else alert('ไม่พบข้อมูล'); }).loginExistingUser(d);
+      google.script.run.withSuccessHandler(r => { if(r.success) { localStorage.setItem('shopUser', JSON.stringify(r)); enterStore(); } else alert('ไม่พบข้อมูล'); }).loginExistingUser(d);
     }
-    
     function enterStoreAsGuest() {
       isGuestMode = true;
       hideAll();
       document.getElementById('custDisplayName').innerText = 'ผู้เยี่ยมชม';
       document.getElementById('storeFront').style.display = 'block';
       document.getElementById('custCategoryBar').style.display = 'block';
+      // ซ่อนปุ่มเมนูที่ต้องการ login
       document.getElementById('navOrderStatus').style.display = 'none';
       document.getElementById('navPayment').style.display = 'none';
+      // render header สำหรับ guest
       document.getElementById('custHeaderBtns').innerHTML = `
         <a href="https://lin.ee/WCekkcV" target="_blank" class="btn btn-light btn-sm rounded-3"><i class="bi bi-line text-success fs-5"></i></a>
         <button class="btn btn-success btn-sm rounded-3" onclick="showCustomerLogin()"><i class="bi bi-person-check me-1"></i>เข้าสู่ระบบ/สมัครสมาชิก</button>
@@ -810,8 +802,10 @@
       document.getElementById('custDisplayName').innerText = user.name || 'ลูกค้า'; 
       document.getElementById('storeFront').style.display = 'block'; 
       document.getElementById('custCategoryBar').style.display = 'block'; 
+      // แสดงปุ่มเมนูครบ
       document.getElementById('navOrderStatus').style.display = 'flex';
       document.getElementById('navPayment').style.display = 'flex';
+      // render header สำหรับสมาชิก
       document.getElementById('custHeaderBtns').innerHTML = `
         <button class="btn btn-light btn-sm position-relative rounded-3" onclick="openCart()">
           <i class="bi bi-cart3 fs-5"></i> <span id="cartCount" class="cart-badge">0</span>
@@ -825,11 +819,12 @@
       updateBadges(); 
     }
 
+    // --- Product and Category Logic ---
     let storeProductsCache = [];
     
     function loadStoreProducts() {
       google.script.run.withSuccessHandler(products => {
-        storeProductsCache = products || [];
+        storeProductsCache = products;
         document.querySelectorAll('#custCategoryBar .cat-pill').forEach(c => c.classList.remove('active'));
         document.getElementById('productGrid').innerHTML = `<div class="col-12 text-center text-muted py-5">กรุณาเลือกเมนูด้านบนเพื่อดูรายการสินค้า</div>`;
       }).getCustomerProducts();
@@ -854,6 +849,7 @@
           let imgs = [];
           try { imgs = JSON.parse(p[4]); } catch(e) { imgs = [p[4]]; }
           const mainImg = imgs[0] || '';
+          
           const isOutOfStock = p[3] <= 0;
           const overlay = isOutOfStock ? `<div class="out-of-stock-overlay"><span class="out-of-stock-badge">สินค้าหมด</span></div>` : '';
 
@@ -903,11 +899,14 @@
        
        const isOutOfStock = p[3] <= 0;
        const sBadge = document.getElementById('dStock');
-       sBadge.className = isOutOfStock ? 'badge bg-secondary' : 'badge bg-success';
+       
+       if(isOutOfStock) { sBadge.className = 'badge bg-secondary'; }
+       else { sBadge.className = 'badge bg-success'; }
        sBadge.innerText = `มีสินค้า : ${p[3]} | ขายแล้ว : ${p[8]||0}`;
 
        const isAdmin = document.getElementById('adminDashboard').style.display === 'block';
        const btnDisabled = isOutOfStock ? 'disabled' : '';
+       
        const actionContainer = document.getElementById('dActions');
        
        if (isAdmin) {
@@ -917,6 +916,7 @@
              <button class="btn btn-outline-danger btn-rounded flex-fill" onclick="deleteP('${p[0]}'); pdModal.hide();">ลบ</button>
           `;
        } else if (isGuestMode) {
+          // Guest: แสดงปุ่มแต่เมื่อกดจะให้ไป login
           actionContainer.innerHTML = `
              <button class="btn btn-primary btn-rounded flex-fill" onclick="requireLoginAlert()">หยิบลงตะกร้า</button>
              <button class="btn btn-buy-now btn-rounded flex-fill" onclick="requireLoginAlert()">ซื้อเลย</button>
@@ -927,6 +927,7 @@
              <button class="btn btn-buy-now btn-rounded flex-fill" ${btnDisabled} onclick="prepareQtySelection('buy')">ซื้อเลย</button>
           `;
        }
+
        pdModal.show();
     }
     
@@ -949,6 +950,7 @@
        document.getElementById('qtyModalName').innerText = currentDetailP[1];
        document.getElementById('qtyModalPrice').innerText = '฿' + Number(currentDetailP[2]).toLocaleString();
        document.getElementById('popupQtyInput').value = 0;
+       // แสดงกล่องกรอกชื่อ/ฉายาสำหรับลายน้ำ เฉพาะสินค้าในหมวด "ตำรา (ไฟล์)" เท่านั้น
        const needWatermark = (currentDetailP[7] === WATERMARK_CATEGORY);
        document.getElementById('qtyModalWatermarkBox').style.display = needWatermark ? 'block' : 'none';
        document.getElementById('popupWatermarkInput').value = '';
@@ -965,7 +967,10 @@
     
     function confirmQtySelection() {
        const qty = parseInt(document.getElementById('popupQtyInput').value);
-       if(qty <= 0) { alert('กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ชิ้น'); return; }
+       if(qty <= 0) {
+          alert('กรุณาระบุจำนวนสินค้าอย่างน้อย 1 ชิ้น');
+          return;
+       }
        const category = currentDetailP[7] || '';
        const needWatermark = (category === WATERMARK_CATEGORY);
        let watermarkName = '';
@@ -1015,7 +1020,6 @@
       if(isGuestMode) { requireLoginAlert(); return; }
       cart.forEach(item => item.selected = false); updateCartUI(); cModal.show(); 
     }
-    
     function saveCart() { localStorage.setItem('shopCart', JSON.stringify(cart)); }
     function updateCartBadge() { const el = document.getElementById('cartCount'); if(el) el.innerText = cart.reduce((a, b) => a + b.qty, 0); }
 
@@ -1053,7 +1057,7 @@
       let grandTotal = 0;
       document.getElementById('checkoutItemsList').innerHTML = currentCheckoutItems.map(i => {
         grandTotal += (i.price * i.qty);
-        return `<div class="d-flex gap-3 mb-2 p-2 bg-white rounded-4 shadow-sm border">
+        return `<div class="d-flex gap-3 mb-2 p-2 bg-white rounded-3 shadow-sm border">
           <img src="${i.img}" class="checkout-item-img">
           <div class="flex-grow-1"><div class="fw-bold small">${i.name}</div>
             <div class="d-flex justify-content-between mt-1"><span class="small">จำนวน: ${i.qty}</span><span class="fw-bold text-danger">฿${(i.price * i.qty).toLocaleString()}</span></div>
@@ -1064,6 +1068,7 @@
       cModal.hide(); ckModal.show();
     }
 
+    // แสดงกล่อง "ชื่อ/ฉายาสำหรับลายน้ำ" แยกใต้กล่องข้อมูลจัดส่ง เฉพาะเมื่อมีสินค้าหมวด "ตำรา (ไฟล์)" ในรายการ
     function renderCheckoutWatermarkBox() {
        const box = document.getElementById('checkoutWatermarkBox');
        const items = currentCheckoutItems.filter(i => i.category === WATERMARK_CATEGORY);
@@ -1082,13 +1087,10 @@
       const orderData = { orderId: document.getElementById('checkoutOrderId').innerText, userId: user.userId, total: total, items: currentCheckoutItems };
 
       google.script.run.withSuccessHandler(r => {
-        if(r && r.success) {
+        if(r.success) {
           cart = cart.filter(item => !currentCheckoutItems.some(ci => ci.id === item.id));
           saveCart(); updateCartBadge(); updateBadges();
           ckModal.hide(); payModal.show(); btn.disabled = false; btn.innerText = 'ยืนยันการสั่งซื้อ';
-        } else {
-          btn.disabled = false; btn.innerText = 'ยืนยันการสั่งซื้อ';
-          alert('เกิดข้อผิดพลาดในการบันทึกออเดอร์');
         }
       }).placeOrder(orderData);
     }
@@ -1097,12 +1099,8 @@
       const user = JSON.parse(localStorage.getItem('shopUser'));
       document.getElementById('orderStatusList').innerHTML = '<p class="text-center text-muted">กำลังโหลด...</p>';
       google.script.run.withSuccessHandler(d => {
-        if(!d || !d.orders) {
-          document.getElementById('orderStatusList').innerHTML = '<p class="text-center text-muted">ไม่สามารถโหลดข้อมูลได้</p>';
-          return;
-        }
         const myOrders = d.orders.filter(o => o[1] === user.userId);
-        myOrdersCache = myOrders; 
+        myOrdersCache = myOrders; // เก็บไว้ใช้ตอนแก้ไขชื่อ/ฉายาลายน้ำ
         updateBadges(d);
         const list = document.getElementById('orderStatusList');
         if(myOrders.length === 0) {
@@ -1161,7 +1159,6 @@
       const user = JSON.parse(localStorage.getItem('shopUser'));
       document.getElementById('paymentList').innerHTML = '<p class="text-center text-muted">กำลังโหลด...</p>';
       google.script.run.withSuccessHandler(d => {
-        if(!d || !d.orders) { document.getElementById('paymentList').innerHTML = '<p class="text-center text-muted">ไม่สามารถโหลดข้อมูลได้</p>'; return; }
         const waitPayOrders = d.orders.filter(o => o[1] === user.userId && o[4] === 'รอชำระ');
         updateBadges(d);
         const list = document.getElementById('paymentList');
@@ -1222,7 +1219,7 @@
           const data = { orderId: document.getElementById('notifyOrderId').value, image: e.target.result, date: document.getElementById('payDate').value, time: document.getElementById('payTime').value, amount: document.getElementById('payAmount').value };
           google.script.run.withSuccessHandler(res => {
              btn.disabled = false; btn.innerText = 'ยืนยันการชำระเงิน';
-             if(res && res.success) { alert('แจ้งชำระเงินเรียบร้อย รอการตรวจสอบ'); npModal.hide(); loadPaymentList(); } else { alert('เกิดข้อผิดพลาดในการแจ้งชำระ'); }
+             if(res.success) { alert('แจ้งชำระเงินเรียบร้อย รอการตรวจสอบ'); npModal.hide(); loadPaymentList(); } else { alert('เกิดข้อผิดพลาด: ' + res.error); }
           }).submitPaymentNotification(data);
        };
        reader.readAsDataURL(fileInput.files[0]);
@@ -1233,7 +1230,6 @@
        try { user = JSON.parse(localStorage.getItem('shopUser')); } catch(e) {}
        if(!user) return;
        const runUpdate = (d) => {
-          if(!d || !d.orders) return;
           const myOrders = d.orders.filter(o => o[1] === user.userId);
           const waitPayCount = myOrders.filter(o => o[4] === 'รอชำระ').length;
           const trackBadge = document.getElementById('orderBadge');
@@ -1254,6 +1250,8 @@
       navigator.clipboard.writeText(String(text)).then(() => alert('คัดลอก' + label + 'แล้ว'));
     }
 
+    // เปิดกล่องแก้ไขชื่อ/ฉายาสำหรับลายน้ำ
+    // mode: 'checkout' = แก้ไขในหน้าสรุปรายการสั่งซื้อ (ยังไม่ยืนยันคำสั่งซื้อ), 'order' = แก้ไขคำสั่งซื้อที่ยืนยันแล้ว (ต้องระบุ orderId)
     function openWatermarkEditModal(mode, orderId = null) {
       currentWatermarkEditCtx = { mode, orderId };
       let items = [];
@@ -1293,6 +1291,7 @@
       const ctx = currentWatermarkEditCtx || {};
       if(ctx.mode === 'checkout') {
         currentCheckoutItems.forEach(it => { if(updates.hasOwnProperty(it.id)) it.watermarkName = updates[it.id]; });
+        // sync กลับไปที่ตะกร้าด้วย เผื่อรายการนี้มาจากตะกร้า
         cart.forEach(it => { if(updates.hasOwnProperty(it.id)) it.watermarkName = updates[it.id]; });
         saveCart();
         renderCheckoutWatermarkBox();
@@ -1304,8 +1303,12 @@
         let items = []; try { items = JSON.parse(src[5]); } catch(e) {}
         items.forEach(it => { if(updates.hasOwnProperty(it.id)) it.watermarkName = updates[it.id]; });
         google.script.run.withSuccessHandler(r => {
-          watermarkEditModal.hide();
-          if(isAdmin) loadAdminData(); else loadOrderHistory();
+          if(r && r.success) {
+            watermarkEditModal.hide();
+            if(isAdmin) loadAdminData(); else loadOrderHistory();
+          } else {
+            alert('เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง');
+          }
         }).updateOrderWatermark(ctx.orderId, items);
       }
     }
@@ -1325,6 +1328,7 @@
     }
 
     function saveEditUser() {
+      // ตรวจสอบว่ากรอกครบทุกช่อง
       const addrFields = ['uAddr_no','uAddr_village','uAddr_moo','uAddr_road','uAddr_soi','uAddr_tambon','uAddr_amphoe','uAddr_province','uAddr_postcode'];
       for(let f of addrFields) {
         if(!document.getElementById(f).value.trim()) {
@@ -1359,7 +1363,7 @@
              localStorage.setItem('shopAdmin', 'true');
              hideAll(); enterAdminDashboard(); 
           } else {
-             alert('รหัสผ่านไม่ถูกต้อง');
+             alert('รหัสผิด');
           }
        }).verifyAdminPassword(pass);
     }
@@ -1373,10 +1377,9 @@
     
     function loadAdminData() {
       google.script.run.withSuccessHandler(d => {
-        if(!d) return;
-        allAdminOrders = (d.orders || []).reverse();
-        allAdminProducts = d.products || [];
-        allAdminUsers = d.users || [];
+        allAdminOrders = d.orders.reverse();
+        allAdminProducts = d.products;
+        allAdminUsers = d.users;
         document.getElementById('adminOrderBadge').innerText = allAdminOrders.length;
         renderAdminProductsForCurrentCategory();
         renderAdminUsers(allAdminUsers);
@@ -1385,6 +1388,7 @@
     }
 
     function renderAdminProductsForCurrentCategory() {
+       // ถ้ายังไม่ได้เลือกเมนูหมวดหมู่ ให้แสดงหน้าว่าง จะแสดงรายการก็ต่อเมื่อกดเลือกเมนูเท่านั้น
        if(!adminActiveCategory) {
           document.querySelectorAll('#adminCategoryBar .cat-pill').forEach(c => c.classList.remove('active'));
           document.getElementById('adminProductGrid').innerHTML = `<div class="col-12 text-center text-muted py-5">กรุณาเลือกเมนูด้านบนเพื่อดูรายการสินค้า</div>`;
@@ -1410,6 +1414,7 @@
           let imgs = [];
           try { imgs = JSON.parse(p[4]); } catch(e) { imgs = [p[4]]; }
           const mainImg = imgs[0] || '';
+          
           return `<div class="col-6 col-md-4">
             <div class="store-product-card p-2 shadow-sm border-0" onclick='openProductDetail(${JSON.stringify(p)})'>
               <div class="img-container-1to1 rounded-3">
@@ -1418,7 +1423,9 @@
               <div class="mt-2 fw-bold small text-truncate px-1">${p[1]}</div>
               <div class="small text-muted px-1" style="font-size:10px;">${p[7] || 'ไม่ระบุหมวดหมู่'}</div>
               <div class="text-danger fw-bold px-1 mb-1">฿${Number(p[2]).toLocaleString()}</div>
-              <div class="small text-muted px-1" style="font-size: 0.75rem;">สต๊อก : ${p[3]} | ขายแล้ว : ${p[8]||0}</div>
+              <div class="small text-muted px-1" style="font-size: 0.75rem;">
+                 สต๊อก : ${p[3]} | ขายแล้ว : ${p[8]||0}
+              </div>
               <div class="small text-center mt-auto text-primary" style="font-size:10px;">${p[6] === 'Hide' ? '(ซ่อนอยู่)' : ''}</div>
             </div>
           </div>`;
@@ -1444,7 +1451,7 @@
       document.getElementById('adminOrderList').innerHTML = orders.map(o => {
         let items = []; try { items = JSON.parse(o[5]); } catch(e) {}
         let watermarkItems = items.filter(it => it.category === WATERMARK_CATEGORY);
-        let hasWatermarkCat = watermarkItems.length > 0;
+        let hasWatermarkCat = watermarkItems.length > 0; // มีสินค้าหมวด "ตำรา (ไฟล์)" ในออเดอร์นี้หรือไม่
         let watermarkNamesText = watermarkItems.map(it => it.watermarkName || '-').join(', ');
         let stCls = 'status-pending';
         if(o[4] === 'ชำระเงินแล้ว') stCls = 'status-paid';
@@ -1529,22 +1536,27 @@
           const m = addrStr.match(p.re);
           if(m) {
             const val = m[1].trim();
-            if(val && val !== '-') parts.push(p.label + ' ' + val);
+            if(val && val !== '-' && val !== '') {
+              parts.push(p.label + ' ' + val);
+            }
           }
         });
         return parts.length > 0 ? parts.join(', ') : addrStr;
       }
 
       const cleanReceiverAddress = buildCleanAddress(order[8]);
+
       const printWin = window.open('', '_blank');
       printWin.document.write(`<html><head><title>ใบปะหน้า - ${orderId}</title><link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet"><style>body{font-family:'Kanit',sans-serif;padding:20px;color:#333}.label-card{border:2px solid #000;padding:20px;border-radius:8px;max-width:500px;margin:auto}.section{border-bottom:1px dashed #999;padding-bottom:15px;margin-bottom:15px}.section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.label-title{font-weight:600;color:#555;font-size:0.85rem;text-decoration:underline;margin-bottom:8px;display:block}.info-name{font-weight:600;font-size:1.15rem;display:block}.info-address{font-size:1rem;line-height:1.5;display:block;margin-top:5px}.items-box{background:#f8f8f8;padding:10px;border:1px solid #ddd;margin-top:15px;font-size:0.9rem}@media print{.no-print{display:none}}<\/style></head><body><div class="label-card"><div class="section"><span class="label-title">ผู้ส่ง (Sender):</span><span class="info-name">${sender.name||'-'} (${sender.phone||'-'})</span><span class="info-address">${sender.address||'-'}</span></div><div class="section"><span class="label-title">ผู้รับ (Receiver):</span><span class="info-name">${order[7]} (${order[9]})</span><span class="info-address">${cleanReceiverAddress}</span></div><div class="items-box"><strong>รายการสินค้า:</strong> ${itemText}</div><div class="mt-4 no-print" style="margin-top:20px;text-align:center;"><button onclick="window.print()" style="padding:10px 25px;background:#0d6efd;color:white;border:none;border-radius:5px;cursor:pointer;font-family:'Kanit';">พิมพ์ใบปะหน้า</button></div></div></body></html>`);
       printWin.document.close();
     }
 
+    // ฟังก์ชันค้นหา
     function handleUniversalSearch() {
        const q = document.getElementById('universalSearch').value.toLowerCase();
        const activeTab = document.querySelector('.admin-tab-content[style*="display: block"]')?.id || 'tab-products';
        const countEl = document.getElementById('searchResultCount');
+       
        let count = 0;
 
        if(activeTab === 'tab-orders') {
@@ -1565,7 +1577,12 @@
           renderAdminProducts(filtered);
           count = filtered.length;
        }
-       countEl.innerText = q.length > 0 ? ('พบ ' + count + ' รายการ') : '';
+
+       if(q.length > 0) {
+          countEl.innerText = 'พบ ' + count + ' รายการ';
+       } else {
+          countEl.innerText = '';
+       }
     }
 
     function checkStatusChange(id, oldVal) {
@@ -1575,14 +1592,12 @@
       document.getElementById('btn-save-'+id).disabled = (newVal === oldVal && newVal !== 'จัดส่งแล้ว');
       if(newVal==='จัดส่งแล้ว') document.getElementById('btn-save-'+id).disabled = false;
     }
-
     function saveAdminOrderStatus(id) {
       const st = document.getElementById('st-'+id).value;
       const tk = document.getElementById('tk-'+id).value;
       if(st==='จัดส่งแล้ว' && !tk) return alert('กรุณากรอกเลขพัสดุ');
       google.script.run.withSuccessHandler(() => { alert('บันทึกสำเร็จ'); loadAdminData(); }).updateOrderStatus(id, st, tk);
     }
-
     function toggleStatus(id) { google.script.run.withSuccessHandler(() => loadAdminData()).toggleProductStatus(id); }
     
     function switchAdminTab(id, el) {
@@ -1600,8 +1615,9 @@
          addProdBtn.style.display = 'block'; 
          searchBox.style.display = 'none'; 
          catBar.style.display = 'block';
-         adminActiveCategory = null; 
-      } else { 
+         adminActiveCategory = null; // เข้าหน้าสินค้าใหม่ทุกครั้ง = หน้าว่าง จนกว่าจะกดเลือกเมนู
+      }
+      else { 
          addProdBtn.style.display = 'none'; 
          searchBox.style.display = 'block'; 
          catBar.style.display = 'none';
@@ -1609,6 +1625,7 @@
       loadAdminData();
     }
 
+    // --- Product Modal and Image Upload Logic ---
     function openProductModal(p=null) {
       document.getElementById('pId').value = p ? p[0] : '';
       document.getElementById('pName').value = p ? p[1] : '';
@@ -1624,9 +1641,15 @@
         try {
           let loadedImgs = JSON.parse(p[4]);
           if(Array.isArray(loadedImgs)) {
-             for(let i=0; i<loadedImgs.length; i++) { if(i < 5) currentProductImgs[i] = loadedImgs[i]; }
-          } else { currentProductImgs[0] = p[4]; }
-        } catch(e) { currentProductImgs[0] = p[4]; }
+             for(let i=0; i<loadedImgs.length; i++) {
+                if(i < 5) currentProductImgs[i] = loadedImgs[i];
+             }
+          } else {
+             currentProductImgs[0] = p[4];
+          }
+        } catch(e) {
+           currentProductImgs[0] = p[4];
+        }
       }
       refreshImgUI();
       pModal.show();
@@ -1637,6 +1660,7 @@
           const imgEl = document.getElementById('img-preview-'+i);
           const btnRm = document.getElementById('btn-rm-'+i);
           const placeholder = document.querySelector(`#img-preview-${i}`).parentNode.querySelector('.upload-placeholder');
+          
           if(currentProductImgs[i]) {
              imgEl.src = currentProductImgs[i];
              imgEl.style.display = 'block';
@@ -1656,7 +1680,10 @@
        if(input.files && input.files[0]) {
           currentProductFiles[idx] = input.files[0];
           const r = new FileReader();
-          r.onload = e => { currentProductImgs[idx] = e.target.result; refreshImgUI(); };
+          r.onload = e => { 
+             currentProductImgs[idx] = e.target.result; // temp preview
+             refreshImgUI(); 
+          };
           r.readAsDataURL(input.files[0]);
        }
     }
@@ -1679,16 +1706,27 @@
       
       uploadImagesRecursive(0, [], function(uploadedUrls) {
           const finalData = { 
-             productId: pId, name: name, price: price, stock: stock, 
-             description: desc, category: category, images: JSON.stringify(uploadedUrls)
+             productId: pId, 
+             name: name, 
+             price: price, 
+             stock: stock, 
+             description: desc,
+             category: category,
+             images: JSON.stringify(uploadedUrls)
           };
+          
           if(pId) google.script.run.withSuccessHandler(() => { pModal.hide(); loadAdminData(); btn.disabled=false;btn.innerText='บันทึกข้อมูลสินค้า'; }).updateProduct(finalData);
           else google.script.run.withSuccessHandler(() => { pModal.hide(); loadAdminData(); btn.disabled=false;btn.innerText='บันทึกข้อมูลสินค้า'; }).addProduct(finalData);
       });
     }
     
     function uploadImagesRecursive(idx, collectedUrls, callback) {
-       if(idx >= 5) { callback(collectedUrls.filter(u => u && u.length > 0)); return; }
+       if(idx >= 5) {
+          const finalUrls = collectedUrls.filter(u => u && u.length > 0);
+          callback(finalUrls);
+          return;
+       }
+       
        if(currentProductFiles[idx]) {
           const reader = new FileReader();
           reader.onload = e => {
@@ -1698,10 +1736,12 @@
              }).uploadFile(e.target.result, currentProductFiles[idx].name);
           };
           reader.readAsDataURL(currentProductFiles[idx]);
-       } else if(currentProductImgs[idx] && currentProductImgs[idx].startsWith('http')) {
+       } 
+       else if(currentProductImgs[idx] && currentProductImgs[idx].startsWith('http')) {
           collectedUrls.push(currentProductImgs[idx]);
           uploadImagesRecursive(idx+1, collectedUrls, callback);
-       } else {
+       }
+       else {
           collectedUrls.push("");
           uploadImagesRecursive(idx+1, collectedUrls, callback);
        }
@@ -1718,9 +1758,12 @@
        uModal.show();
     }
     function deleteUFromModal() { if(confirm('ยืนยันการลบลูกค้านี้? ข้อมูลจะหายถาวร')) google.script.run.withSuccessHandler(() => { uModal.hide(); loadAdminData(); }).deleteUser(document.getElementById('uId').value); }
-    
     function switchCustTab(id, el) { 
-      if(isGuestMode && (id === 'cust-status' || id === 'cust-payment')) { requireLoginAlert(); return; }
+      // ถ้าเป็น guest และกดแท็บที่ต้องการ login
+      if(isGuestMode && (id === 'cust-status' || id === 'cust-payment')) {
+        requireLoginAlert();
+        return;
+      }
       document.querySelectorAll('.cust-tab-content').forEach(c => c.style.display = 'none'); 
       document.getElementById(id).style.display = 'block'; 
       document.querySelectorAll('.nav-item-btn').forEach(n => n.classList.remove('active')); el.classList.add('active'); 
